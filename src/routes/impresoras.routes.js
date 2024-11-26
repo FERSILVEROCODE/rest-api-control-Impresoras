@@ -1,6 +1,7 @@
 import {Router} from 'express'
 import {getImpresoras, createImpresora, updateImpresora, deleteImpresora, getImpresora} from '../controllers/impresoras.controller.js'
 
+
 const router = Router()
 
 router.get('/', getImpresoras )

@@ -17,6 +17,11 @@ export async function getUserPorId(req,res){
 
         const [rows,fields] = await pool.query(sql, id);
 
+        // Si no hay resultados, responde con un mensaje indicando que no hay registros
+        if (rows.length === 0) {
+            return { message: "No existen registro de usuario con el ID proporcionado ", data:rows};
+        }
+
         
         return (rows)
 
@@ -39,7 +44,7 @@ export async function crearNuevoUsuario (body,res){
             throw error;
           }
          
-        const [rows] = await pool.query('SELECT * FROM USUARIO WHERE id =?', [result.insertId]);
+        const [rows] = await pool.query('SELECT * FROM USUARIO WHERE id_usuario =?', [result.insertId]);
         return { message: "se ha registrado con exito ", data:rows};
     
     } catch (error) {
@@ -51,7 +56,7 @@ export async function crearNuevoUsuario (body,res){
 
 export async function actualizaUsuario (id,body){
     try {        
-        const consulta = 'UPDATE USUARIO SET nombre = IFNULL(?, nombre), apellido = IFNULL(?, apellido), mail = IFNULL(?, mail), pass = IFNULL(?, pass), fecha_creacion = IFNULL(?, fecha_creacion), telefono = IFNULL(?, telefono), id_printer = (?, id_printer)  WHERE id = ?'
+        const consulta = 'UPDATE USUARIO SET nombre = IFNULL(?, nombre), apellido = IFNULL(?, apellido), mail = IFNULL(?, mail), pass = IFNULL(?, pass), fecha_creacion = IFNULL(?, fecha_creacion), telefono = IFNULL(?, telefono), id_printer = IFNULL(?, id_printer)  WHERE id_usuario = ?'
         
         const datos = [body.nombre, body.apellido, body.mail, body.pass, body.fecha_creacion, body.telefono, body.id_printer, id];
 
@@ -62,7 +67,7 @@ export async function actualizaUsuario (id,body){
             error.status = 404;
             throw error;
           }
-        const [rows] = await pool.query('SELECT * FROM USUARIO WHERE id = ?', [id]);
+        const [rows] = await pool.query('SELECT * FROM USUARIO WHERE id_usuario = ?', [id]);
         return ({message: "Usuario actualizado con exito" , data: rows[0]});
     } catch (error) {
         throw error;
@@ -72,7 +77,7 @@ export async function actualizaUsuario (id,body){
 
 export async function eliminarUsuario(id){
     try {
-        const sql = 'DELETE FROM USUARIO WHERE id = ?';
+        const sql = 'DELETE FROM USUARIO WHERE id_usuario = ?';
         
         const [result] = await pool.query(sql,id);
         

@@ -6,8 +6,12 @@ import serviciosRoutes from './routes/servicios.routes.js'
 import usuariosRoutes from './routes/usuarios.routes.js'
 import indexRoutes from './routes/index.routes.js'
 
+import morgan from 'morgan'
+
 
 const app = express()
+
+app.use(morgan('dev')) // Para ver las peticiones en la consola
 
 app.use(express.json())
 

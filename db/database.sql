@@ -1,3 +1,31 @@
+use controldeimpresoras;
+-- datos precargados
+CREATE TABLE areas (
+    id_area INT AUTO_INCREMENT PRIMARY KEY,
+    nombre_area VARCHAR(100),
+    descripcion TEXT
+);
+
+select * from areas;
+DELETE FROM areas WHERE id_area = 5;
+-- cargando datos de áreas --
+INSERT INTO areas (nombre_area, descripcion) VALUES ('Recursos Humanos', 'Área encargada de la gestión de personal');
+INSERT INTO areas (nombre_area, descripcion) VALUES ('Compras', 'Área encargada de la gestión de las compras');
+INSERT INTO areas (nombre_area, descripcion) VALUES ('Tesorería', 'Área encargada de la gestion de los pagos');
+INSERT INTO areas (nombre_area, descripcion) VALUES ('Caja', 'Area donde se hacen los cobros');
+INSERT INTO areas (nombre_area, descripcion) VALUES ('Sistemas', 'Área encargada del desarrollo de sistemas');
+INSERT INTO areas (nombre_area, descripcion) VALUES ('Patrimonio', 'Área encargada del manejo de inventario de bienes');
+-- eliminando areas duplicadas --
+delete from areas where id_area = 3;
+delete from areas where id_area = 4;
+
+
+-- datos precargados
+CREATE TABLE tipo_impresora (
+	id_tipo_impresora INT AUTO_INCREMENT PRIMARY KEY,
+	nombre VARCHAR(50)
+);
+
 select * from tipo_impresora;
 
 INSERT INTO tipo_impresora (nombre) VALUES ('Láser');
