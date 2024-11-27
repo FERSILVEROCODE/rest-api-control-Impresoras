@@ -5,9 +5,7 @@ import mantenimientoRoutes from './routes/mantenimientos.routes.js'
 import serviciosRoutes from './routes/servicios.routes.js'
 import usuariosRoutes from './routes/usuarios.routes.js'
 import indexRoutes from './routes/index.routes.js'
-
 import morgan from 'morgan'
-
 
 const app = express()
 
