@@ -27,9 +27,9 @@ export async function getContadoresPorId(req,res){
 
 export async function crearContadorDeImpresiones (body,res){
     try {        
-        let consulta = ('INSERT INTO contadores_impresiones (id,id_impresora,contador,fecha) VALUES(?,?,?,?)')
+        let consulta = ('INSERT INTO contadores_impresiones (id_impresora,contador,fecha) VALUES(?,?,?)')
         
-        const datos = [body.Id_impresora, body.contador, body.fecha];
+        const datos = [body.id_impresora, body.contador, body.fecha];
 
         const [result] = await pool.query(consulta, datos);
 
@@ -39,7 +39,7 @@ export async function crearContadorDeImpresiones (body,res){
             throw error;
           }
          
-        const [rows] = await pool.query('SELECT * FROM contador_impresiones WHERE id =?', [result.insertId]);
+        const [rows] = await pool.query('SELECT * FROM contadores_impresiones WHERE id =?', [result.insertId]);
         return { message: "se ha registrado con exito ", data:rows};
     
     } catch (error) {
@@ -51,7 +51,7 @@ export async function crearContadorDeImpresiones (body,res){
 
 export async function actualizaContador (id,body){
     try {        
-        const consulta = 'UPDATE contador_impresiones SET id_impresora = IFNULL(?, id_impresora), contador = IFNULL(?, contador), fecha = IFNULL(?, fecha) WHERE id = ?'
+        const consulta = 'UPDATE contadores_impresiones SET id_impresora = IFNULL(?, id_impresora), contador = IFNULL(?, contador), fecha = IFNULL(?, fecha) WHERE id = ?'
         
         const datos = [body.id_impresora, body.contador, body.fecha, id];
 
@@ -62,7 +62,7 @@ export async function actualizaContador (id,body){
             error.status = 404;
             throw error;
           }
-        const [rows] = await pool.query('SELECT * FROM contador_impresiones WHERE id = ?', [id]);
+        const [rows] = await pool.query('SELECT * FROM contadores_impresiones WHERE id = ?', [id]);
         return ({message: "contador actualizado con exito" , data: rows[0]});
     } catch (error) {
         throw error;
@@ -72,7 +72,7 @@ export async function actualizaContador (id,body){
 
 export async function eliminarContador(id){
     try {
-        const sql = 'DELETE FROM contador_impresiones WHERE id = ?';
+        const sql = 'DELETE FROM contadores_impresiones WHERE id = ?';
         
         const [result] = await pool.query(sql,id);
         

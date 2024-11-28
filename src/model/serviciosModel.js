@@ -55,7 +55,7 @@ export async function crearNuevoServicio (body,res){
 
 export async function actualizaServicio (id,body){
     try {        
-        const consulta = 'UPDATE servicios SET id_servicio = IFNULL(?, id_servicio), descripcion = IFNULL(?, descripcion), tipo_printer = IFNULL(?, tipo_printer) WHERE id = ?'
+        const consulta = 'UPDATE servicios SET id_servicio = IFNULL(?, id_servicio), descripcion = IFNULL(?, descripcion), tipo_printer = IFNULL(?, tipo_printer) WHERE id_servicio = ?'
         
         const datos = [body.id_servicio, body.descripcion, body.tipo_printer, id];
 
@@ -66,7 +66,7 @@ export async function actualizaServicio (id,body){
             error.status = 404;
             throw error;
           }
-        const [rows] = await pool.query('SELECT * FROM servicios WHERE id = ?', [id]);
+        const [rows] = await pool.query('SELECT * FROM servicios WHERE id_servicio = ?', [id]);
         return ({message: "servicio actualizado con exito" , data: rows[0]});
     } catch (error) {
         throw error;
@@ -76,7 +76,7 @@ export async function actualizaServicio (id,body){
 
 export async function eliminarServicio(id){
     try {
-        const sql = 'DELETE FROM servicios WHERE id = ?';
+        const sql = 'DELETE FROM servicios WHERE id_servicio = ?';
         
         const [result] = await pool.query(sql,id);
         

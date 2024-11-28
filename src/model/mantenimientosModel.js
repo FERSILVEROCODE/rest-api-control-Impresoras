@@ -9,6 +9,7 @@ export async function getallMantenimientos(req,res){
     }
 }
 
+//lista mantenimientos realizados por cada impresoras:
 export async function getMantenimientosPorId(req,res){
     try {
         let sql = 'SELECT * FROM mantenimientos WHERE id_impresora = ?';
@@ -51,7 +52,7 @@ export async function crearNuevoMantenimiento (body,res){
 
 export async function actualizaMantenimiento (id,body){
     try {        
-        const consulta = 'UPDATE mantenimientos SET id_impresora = IFNULL(?, id_impresora), id_servicio = IFNULL(?, id_servicio), fecha = IFNULL(?, fecha), observaciones = IFNULL(?, observaciones) WHERE id = ?'
+        const consulta = 'UPDATE mantenimientos SET id_impresora = IFNULL(?, id_impresora), id_servicio = IFNULL(?, id_servicio), fecha = IFNULL(?, fecha), observaciones = IFNULL(?, observaciones) WHERE id_mantenimiento = ?'
         
         const datos = [body.id_impresora, body.id_servicio, body.fecha, body.observaciones, id];
 
