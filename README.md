@@ -19,11 +19,11 @@ Git y Github para controlar versiones de código
 
 Tablas: 
 
-Impresoras
-Servicios
-Areas
-Usuarios
-Mantenimientos
+Impresoras,
+Servicios,
+Areas,
+Usuarios,
+Mantenimientos,
 Contadores de impresiones
 
 
