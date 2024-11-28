@@ -1,4 +1,4 @@
-import {getallUsers,getUserPorId,crearNuevoUsuario,actualizaUsuario,eliminarUsuario} from '../model/usuariosModel.js'
+import {getallUsers,getUserPorId,crearNuevoUsuario,actualizaUsuario,eliminarUsuario,findByMail} from '../model/usuariosModel.js'
 import jwt from 'jsonwebtoken';
 import bc from 'bcrypt';
 
@@ -79,7 +79,7 @@ export const deleteUsuario = async(req,res)=>{
 export const login = async (req, res) => {
     try {
         const { mail, pass } = req.body;
-        const result = await model.findByMail(mail);
+        const result = await findByMail(mail);
         const iguales = compareSync(pass, result.pass);
         if (iguales) {
             let user = {

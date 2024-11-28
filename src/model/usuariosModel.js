@@ -92,3 +92,25 @@ export async function eliminarUsuario(id){
       }
 }
 
+//un metodo que utiliza la funcion del login para saber si existe ese usuario o no
+export async function findByMail (mail){
+    try {
+
+      const sql = 'select mail,pass FROM USUARIO WHERE mail = ?';
+        
+      const [rows] = await pool.query(sql,mail);
+      /*
+      const consulta = `SELECT mail, pass FROM usuario where mail = $1`;
+      const { rows } = await pool.query(consulta, [mail]);*/
+  
+      if (rows.length === 0) {
+        const error = new Error(`Usuario no encontrado con el mail : ${mail}`);
+        error.status = 404;
+        throw error;
+      }
+  
+      return rows[0]; //si no saltó el error en el if anterior entoces se devuelve el resultado
+    } catch (error) {
+      throw error;
+    }
+  }

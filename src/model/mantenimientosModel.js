@@ -39,7 +39,7 @@ export async function crearNuevoMantenimiento (body,res){
             throw error;
           }
          
-        const [rows] = await pool.query('SELECT * FROM mantenimientos WHERE id =?', [result.insertId]);
+        const [rows] = await pool.query('SELECT * FROM mantenimientos WHERE id_mantenimiento =?', [result.insertId]);
         return { message: "se ha registrado con exito ", data:rows};
     
     } catch (error) {
@@ -62,7 +62,7 @@ export async function actualizaMantenimiento (id,body){
             error.status = 404;
             throw error;
           }
-        const [rows] = await pool.query('SELECT * FROM mantenimientos WHERE id = ?', [id]);
+        const [rows] = await pool.query('SELECT * FROM mantenimientos WHERE id_mantenimiento = ?', [id]);
         return ({message: "mantenimiento actualizado con exito" , data: rows[0]});
     } catch (error) {
         throw error;
@@ -72,7 +72,7 @@ export async function actualizaMantenimiento (id,body){
 
 export async function eliminarMantenimiento(id){
     try {
-        const sql = 'DELETE FROM mantenimientos WHERE id = ?';
+        const sql = 'DELETE FROM mantenimientos WHERE id_mantenimiento = ?';
         
         const [result] = await pool.query(sql,id);
         
